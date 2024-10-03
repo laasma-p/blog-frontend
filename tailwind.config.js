@@ -8,7 +8,7 @@ export default {
         "east-side": "#AD88C6",
         "french-lilac": "#E1AFD1",
         "misty-rose": "#FFE6E6",
-        "white-smoke": "#ECECEC",
+        "white-smoke": "#F8F8F8",
         nero: "#2C2C2C",
       },
     },
