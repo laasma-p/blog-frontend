@@ -31,20 +31,35 @@ const Posts = () => {
   ];
 
   return (
-    <div>
-      <h2>Posts</h2>
-      <div>
+    <div className="pb-10 px-4">
+      <h2 className="text-3xl pt-2 pb-4 font-semibold text-nero">Posts</h2>
+      <div className="max-w-3xl grid gap-8">
         {posts.map((post) => {
           return (
-            <div key={post.id}>
-              <h3>
-                <a href="#">{post.title}</a>
+            <div
+              key={post.id}
+              className="p-6 border-2 border-east-side rounded-lg shadow-lg text-nero"
+            >
+              <h3 className="text-2xl font-bold mb-2">
+                <a
+                  href="#"
+                  className="hover:text-chetwode-blue transition-colors duration-300"
+                >
+                  {post.title}
+                </a>
               </h3>
-              <p>{post.content}</p>
-              <span>
+              <p className="mb-2">{post.content}</p>
+              <span className="mb-4">
                 <em>Written on {post.date}</em>
               </span>
-              <a href="#">Read more →</a>
+              <div>
+                <a
+                  href="#"
+                  className="font-semibold hover:text-chetwode-blue transition-colors duration-300"
+                >
+                  Read more →
+                </a>
+              </div>
             </div>
           );
         })}

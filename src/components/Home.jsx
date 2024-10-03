@@ -5,12 +5,12 @@ import Footer from "./Footer";
 
 const Home = () => {
   return (
-    <>
+    <div className="bg-white-smoke">
       <Header />
       <FeaturedPosts />
       <Posts />
       <Footer />
-    </>
+    </div>
   );
 };
 
