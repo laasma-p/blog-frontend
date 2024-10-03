@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const FeaturedPosts = () => {
   const featuredPosts = [
     {
@@ -24,8 +26,8 @@ const FeaturedPosts = () => {
 
   return (
     <div className="pb-10 px-4">
-      <h2 className="text-3xl pt-4 pb-6 font-semibold text-nero">Featured</h2>
-      <div className="grid md:grid-cols-3 gap-8">
+      <h2 className="text-3xl py-4 font-semibold text-nero">Featured</h2>
+      <div className="grid md:grid-cols-3 gap-4">
         {featuredPosts.map((post) => {
           return (
             <div
@@ -33,24 +35,24 @@ const FeaturedPosts = () => {
               className="p-6 border-2 border-east-side rounded-lg shadow-lg text-nero"
             >
               <h3 className="text-2xl font-bold mb-2">
-                <a
-                  href="#"
+                <Link
+                  to={`/post/${post.id}`}
                   className="hover:text-chetwode-blue transition-colors duration-300"
                 >
                   {post.title}
-                </a>
+                </Link>
               </h3>
               <p className="mb-2">{post.content}</p>
               <span className="mb-4">
                 <em>Written on {post.date}</em>
               </span>
               <div>
-                <a
-                  href="#"
+                <Link
+                  to={`/post/${post.id}`}
                   className="font-semibold hover:text-chetwode-blue transition-colors duration-300"
                 >
                   Read more →
-                </a>
+                </Link>
               </div>
             </div>
           );
