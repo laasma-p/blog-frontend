@@ -1,6 +1,7 @@
 import Header from "./Header";
 import FeaturedPosts from "./FeaturedPosts";
 import Posts from "./Posts";
+import Footer from "./Footer";
 
 const Home = () => {
   return (
@@ -8,6 +9,7 @@ const Home = () => {
       <Header />
       <FeaturedPosts />
       <Posts />
+      <Footer />
     </>
   );
 };
