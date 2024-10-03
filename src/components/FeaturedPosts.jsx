@@ -24,6 +24,17 @@ const FeaturedPosts = () => {
     },
   ];
 
+  const truncateContent = (content, maxLength) => {
+    if (content.length <= maxLength) {
+      return content;
+    }
+
+    const truncatedContent = content.slice(0, maxLength);
+    const lastSpaceIndex = truncatedContent.lastIndexOf(" ");
+
+    return truncatedContent.slice(0, lastSpaceIndex) + "...";
+  };
+
   return (
     <div className="pb-10 px-4">
       <h2 className="text-3xl py-4 font-semibold text-nero">Featured</h2>
@@ -42,7 +53,7 @@ const FeaturedPosts = () => {
                   {post.title}
                 </Link>
               </h3>
-              <p className="mb-2">{post.content}</p>
+              <p className="mb-2">{truncateContent(post.content, 140)}</p>
               <span className="mb-4">
                 <em>Written on {post.date}</em>
               </span>
