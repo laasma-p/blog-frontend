@@ -55,7 +55,14 @@ const FeaturedPosts = () => {
               </h3>
               <p className="mb-2">{truncateContent(post.content, 140)}</p>
               <span className="mb-4">
-                <em>Written on {post.date}</em>
+                <em>
+                  Written on{" "}
+                  {new Date(post.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </em>
               </span>
               <div>
                 <Link
