@@ -15,7 +15,14 @@ const Post = () => {
         </Link>
         <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
         <span className="mb-6">
-          <em>Written on {post.date}</em>
+          <em>
+            Written on{" "}
+            {new Date(post.date).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </em>
         </span>
         <p className="text-lg">{post.content}</p>
       </div>
