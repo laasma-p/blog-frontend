@@ -1,10 +1,15 @@
+import { Link } from "react-router-dom";
+
 const Post = () => {
   return (
     <div className="bg-white-smoke h-dvh">
       <div className="max-w-4xl mx-auto p-6 text-nero">
-        <button className="hover:text-chetwode-blue transition-colors duration-300">
+        <Link
+          to="/"
+          className="hover:text-chetwode-blue transition-colors duration-300"
+        >
           ← Back to posts
-        </button>
+        </Link>
         <h1 className="text-4xl font-bold mb-4">Post title</h1>
         <span className="mb-6">
           <em>Written on date</em>
