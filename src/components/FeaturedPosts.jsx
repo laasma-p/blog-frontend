@@ -48,6 +48,7 @@ const FeaturedPosts = () => {
               <h3 className="text-2xl font-bold mb-2">
                 <Link
                   to={`/post/${post.id}`}
+                  state={post}
                   className="hover:text-chetwode-blue transition-colors duration-300"
                 >
                   {post.title}
@@ -67,6 +68,7 @@ const FeaturedPosts = () => {
               <div>
                 <Link
                   to={`/post/${post.id}`}
+                  state={post}
                   className="font-semibold hover:text-chetwode-blue transition-colors duration-300"
                 >
                   Read more →
