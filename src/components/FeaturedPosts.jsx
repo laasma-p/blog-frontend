@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbTack } from "@fortawesome/free-solid-svg-icons";
+import { faThumbtack } from "@fortawesome/free-solid-svg-icons";
 
 const FeaturedPosts = () => {
   const featuredPosts = [
@@ -48,7 +48,7 @@ const FeaturedPosts = () => {
               className="p-6 border-2 border-east-side rounded-lg shadow-lg text-nero relative"
             >
               <FontAwesomeIcon
-                icon={faThumbTack}
+                icon={faThumbtack}
                 className="absolute top-4 right-4 text-east-side"
               />
               <h3 className="text-2xl font-bold mb-2">
