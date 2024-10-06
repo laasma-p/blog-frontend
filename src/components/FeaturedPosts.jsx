@@ -1,30 +1,24 @@
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbtack } from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
 
 const FeaturedPosts = () => {
-  const featuredPosts = [
-    {
-      id: 1,
-      title: "My first reflection",
-      date: "2024-09-21",
-      content:
-        "This is the full content of my first reflection post. This is obviously a placeholder",
-    },
-    {
-      id: 2,
-      title: "Thoughts on life",
-      date: "2022-01-01",
-      content: "Another content about life.",
-    },
-    {
-      id: 3,
-      title: "Another insight",
-      date: "2023-05-04",
-      content:
-        "This is the full content of the post. Maybe it should have been longer.",
-    },
-  ];
+  const [featuredPosts, setFeaturedPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchFeaturedPosts = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/posts/pinned");
+        const data = await response.json();
+        setFeaturedPosts(data);
+      } catch (error) {
+        console.error("Error fetching featured posts:", error.message);
+      }
+    };
+
+    fetchFeaturedPosts();
+  }, []);
 
   const truncateContent = (content, maxLength) => {
     if (content.length <= maxLength) {
@@ -54,7 +48,6 @@ const FeaturedPosts = () => {
               <h3 className="text-2xl font-bold mb-2">
                 <Link
                   to={`/post/${post.id}`}
-                  state={post}
                   className="hover:text-chetwode-blue transition-colors duration-300"
                 >
                   {post.title}
@@ -74,7 +67,6 @@ const FeaturedPosts = () => {
               <div>
                 <Link
                   to={`/post/${post.id}`}
-                  state={post}
                   className="font-semibold hover:text-chetwode-blue transition-colors duration-300"
                 >
                   Read more →

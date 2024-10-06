@@ -1,36 +1,22 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Posts = () => {
-  const posts = [
-    {
-      id: 1,
-      title: "First impressions of a new city",
-      content:
-        "This is a lot of content here. It talks about a new city I have moved to.",
-      date: "2024-02-21",
-    },
-    {
-      id: 2,
-      title: "Thoughts on life currently",
-      content:
-        "A lot of things are happening and it shows. This post tells all about it.",
-      date: "2024-04-05",
-    },
-    {
-      id: 3,
-      title: "Thoughts on a movie",
-      content:
-        "I watch a lot of movies and I would like to review them here. I think it is important to consider different perspectives, and writing is the easiest way for me to do exactly that.",
-      date: "2023-09-12",
-    },
-    {
-      id: 4,
-      title: "New beginnings",
-      content:
-        "This is the full content on new beginning. It talks about a lot of stuff, but I am not going to spoil it. Read more by clicking on the button!",
-      date: "2024-09-02",
-    },
-  ];
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/posts");
+        const data = await response.json();
+        setPosts(data);
+      } catch (error) {
+        console.error("Error fetching posts:", error.message);
+      }
+    };
+
+    fetchPosts();
+  }, []);
 
   const truncateContent = (content, maxLength) => {
     if (content.length <= maxLength) {
@@ -56,7 +42,6 @@ const Posts = () => {
               <h3 className="text-2xl font-bold mb-2">
                 <Link
                   to={`/post/${post.id}`}
-                  state={post}
                   className="hover:text-chetwode-blue transition-colors duration-300"
                 >
                   {post.title}
@@ -76,7 +61,6 @@ const Posts = () => {
               <div>
                 <Link
                   to={`/post/${post.id}`}
-                  state={post}
                   className="font-semibold hover:text-chetwode-blue transition-colors duration-300"
                 >
                   Read more →
