@@ -7,12 +7,27 @@ const Login = () => {
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
   };
+
   const passwordChangeHandler = (event) => {
     setPassword(event.target.value);
   };
 
-  const loggingInHandler = (event) => {
+  const loggingInHandler = async (event) => {
     event.preventDefault();
+
+    const response = await fetch("http://localhost:3000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log("Logged in");
+    }
   };
 
   return (
