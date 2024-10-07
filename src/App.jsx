@@ -15,7 +15,10 @@ function App() {
 
   return (
     <>
-      <Navigation isAuthenticated={isAuthenticated} />
+      <Navigation
+        isAuthenticated={isAuthenticated}
+        setIsAuthenticated={setIsAuthenticated}
+      />
       <Routes>
         <Route
           path="/"
@@ -29,7 +32,13 @@ function App() {
         />
         <Route
           path="/login"
-          element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />}
+          element={
+            isAuthenticated ? (
+              <Navigate to="/dashboard" />
+            ) : (
+              <Login setIsAuthenticated={setIsAuthenticated} />
+            )
+          }
         />
         <Route
           path="/post/:postId"
