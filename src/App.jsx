@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import NotFound from "./components/NotFound";
 import Dashboard from "./components/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AddAPost from "./components/AddAPost";
 
 function App() {
   return (
@@ -22,6 +23,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add-a-post"
+          element={
+            <ProtectedRoute>
+              <AddAPost />
             </ProtectedRoute>
           }
         />
