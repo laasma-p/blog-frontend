@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setIsAuthenticated }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
@@ -26,7 +28,11 @@ const Login = () => {
     const data = await response.json();
 
     if (response.ok) {
-      console.log("Logged in");
+      localStorage.setItem("token", data.token);
+      setIsAuthenticated(true);
+      navigate("/dashboard");
+    } else {
+      console.error("Cannot log in.");
     }
   };
 
