@@ -8,10 +8,15 @@ import NotFound from "./components/NotFound";
 import Dashboard from "./components/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AddAPost from "./components/AddAPost";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsAuthenticated(token !== null);
+  }, []);
 
   return (
     <>
