@@ -140,7 +140,7 @@ const Dashboard = () => {
                         post.status === "draft"
                           ? "opacity-50 cursor-not-allowed"
                           : ""
-                      } `}
+                      }`}
                       onClick={() => togglePinHandler(post.id)}
                       disabled={post.status === "draft"}
                       title={
