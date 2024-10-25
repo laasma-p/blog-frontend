@@ -5,10 +5,12 @@ import Footer from "./Footer";
 
 const Home = () => {
   return (
-    <div className="bg-white-smoke">
+    <div className="bg-white-smoke min-h-screen flex flex-col">
       <Header />
-      <FeaturedPosts />
-      <Posts />
+      <main className="flex-grow">
+        <FeaturedPosts />
+        <Posts />
+      </main>
       <Footer />
     </div>
   );
