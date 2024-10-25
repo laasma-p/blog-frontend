@@ -2,6 +2,11 @@ import { useState, useEffect } from "react";
 
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
+  const [analytics, setAnalytics] = useState({
+    totalPosts: 0,
+    pinnedPosts: 0,
+    drafts: 0,
+  });
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -22,6 +27,12 @@ const Dashboard = () => {
 
         const data = await response.json();
         setPosts(data);
+
+        const totalPosts = data.length;
+        const pinnedPosts = data.filter((post) => post.isPinned).length;
+        const drafts = data.filter((post) => post.status === "draft").length;
+
+        setAnalytics({ totalPosts, pinnedPosts, drafts });
       } catch (error) {
         console.error("Error fetching posts:", error.message);
       }
@@ -84,15 +95,15 @@ const Dashboard = () => {
       <div className="grid grid-cols-3 gap-4 mb-8">
         <div className="bg-chetwode-blue text-white-smoke p-4 rounded-lg">
           <h3 className="text-2xl">Total Posts</h3>
-          <p className="text-xl">3</p>
+          <p className="text-xl">{analytics.totalPosts}</p>
         </div>
         <div className="bg-east-side text-white-smoke p-4 rounded-lg">
           <h3 className="text-2xl">Pinned Posts</h3>
-          <p className="text-xl">2</p>
+          <p className="text-xl">{analytics.pinnedPosts}</p>
         </div>
         <div className="bg-french-lilac text-white-smoke p-4 rounded-lg">
           <h3 className="text-2xl">Draft Posts</h3>
-          <p className="text-xl">1</p>
+          <p className="text-xl">{analytics.drafts}</p>
         </div>
       </div>
       <div>
