@@ -85,7 +85,13 @@ const Dashboard = () => {
               return (
                 <tr className="border-b" key={post.id}>
                   <td className="p-4">{post.title}</td>
-                  <td className="p-4">{post.date}</td>
+                  <td className="p-4">
+                    {new Date(post.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </td>
                   <td className="p-4">{post.status}</td>
                   <td className="p-4">
                     <button className="py-1 px-3 rounded bg-french-lilac">
