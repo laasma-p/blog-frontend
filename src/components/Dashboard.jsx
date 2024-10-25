@@ -129,7 +129,9 @@ const Dashboard = () => {
                       day: "numeric",
                     })}
                   </td>
-                  <td className="p-4">{post.status}</td>
+                  <td className="p-4">
+                    {post.status === "published" ? "Published" : "Draft"}
+                  </td>
                   <td className="p-4">
                     <button
                       className={`py-1 px-3 rounded ${
