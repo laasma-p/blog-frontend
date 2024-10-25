@@ -91,7 +91,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto py-8 px-8">
       <div className="grid grid-cols-3 gap-4 mb-8">
         <div className="bg-chetwode-blue text-white-smoke p-4 rounded-lg">
           <h3 className="text-2xl">Total Posts</h3>
