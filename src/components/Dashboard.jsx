@@ -136,8 +136,18 @@ const Dashboard = () => {
                     <button
                       className={`py-1 px-3 rounded ${
                         post.isPinned ? "bg-east-side" : "bg-french-lilac"
-                      }`}
+                      } ${
+                        post.status === "draft"
+                          ? "opacity-50 cursor-not-allowed"
+                          : ""
+                      } `}
                       onClick={() => togglePinHandler(post.id)}
+                      disabled={post.status === "draft"}
+                      title={
+                        post.status === "draft"
+                          ? "Publish first to enable pinning"
+                          : ""
+                      }
                     >
                       {post.isPinned ? "Unpin" : "Pin"}
                     </button>
