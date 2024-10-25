@@ -32,44 +32,48 @@ const Posts = () => {
   return (
     <div className="pb-10 px-4">
       <h2 className="text-3xl pb-4 font-semibold text-nero">Posts</h2>
-      <div className="max-w-3xl grid gap-4">
-        {posts.map((post) => {
-          return (
-            <div
-              key={post.id}
-              className="p-6 border-2 border-east-side rounded-lg shadow-lg text-nero"
-            >
-              <h3 className="text-2xl font-bold mb-2">
-                <Link
-                  to={`/post/${post.id}`}
-                  className="hover:text-chetwode-blue transition-colors duration-300"
-                >
-                  {post.title}
-                </Link>
-              </h3>
-              <p className="mb-2">{truncateContent(post.content, 140)}</p>
-              <span className="mb-4">
-                <em>
-                  Written on{" "}
-                  {new Date(post.date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </em>
-              </span>
-              <div>
-                <Link
-                  to={`/post/${post.id}`}
-                  className="font-semibold hover:text-chetwode-blue transition-colors duration-300"
-                >
-                  Read more →
-                </Link>
+      {posts.length === 0 ? (
+        <p className="text-lg">No posts found.</p>
+      ) : (
+        <div className="max-w-3xl grid gap-4">
+          {posts.map((post) => {
+            return (
+              <div
+                key={post.id}
+                className="p-6 border-2 border-east-side rounded-lg shadow-lg text-nero"
+              >
+                <h3 className="text-2xl font-bold mb-2">
+                  <Link
+                    to={`/post/${post.id}`}
+                    className="hover:text-chetwode-blue transition-colors duration-300"
+                  >
+                    {post.title}
+                  </Link>
+                </h3>
+                <p className="mb-2">{truncateContent(post.content, 140)}</p>
+                <span className="mb-4">
+                  <em>
+                    Written on{" "}
+                    {new Date(post.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </em>
+                </span>
+                <div>
+                  <Link
+                    to={`/post/${post.id}`}
+                    className="font-semibold hover:text-chetwode-blue transition-colors duration-300"
+                  >
+                    Read more →
+                  </Link>
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };
