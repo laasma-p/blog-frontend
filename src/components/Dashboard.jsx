@@ -53,6 +53,32 @@ const Dashboard = () => {
     }
   };
 
+  const togglePinHandler = async (postId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/admin/pin-post/${postId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to pin a post");
+      }
+
+      const updatedPosts = posts.map((post) =>
+        post.id === postId ? { ...post, isPinned: !post.isPinned } : post
+      );
+      setPosts(updatedPosts);
+    } catch (error) {
+      console.error("Error pinning a post:", error.message);
+    }
+  };
+
   return (
     <div className="container mx-auto py-8">
       <div className="grid grid-cols-3 gap-4 mb-8">
@@ -94,8 +120,13 @@ const Dashboard = () => {
                   </td>
                   <td className="p-4">{post.status}</td>
                   <td className="p-4">
-                    <button className="py-1 px-3 rounded bg-french-lilac">
-                      Unpin
+                    <button
+                      className={`py-1 px-3 rounded ${
+                        post.isPinned ? "bg-east-side" : "bg-french-lilac"
+                      }`}
+                      onClick={() => togglePinHandler(post.id)}
+                    >
+                      {post.isPinned ? "Unpin" : "Pin"}
                     </button>
                   </td>
                   <td className="p-4">
