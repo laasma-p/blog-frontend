@@ -30,6 +30,29 @@ const Dashboard = () => {
     fetchPosts();
   }, []);
 
+  const deletePostHandler = async (postId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/admin/delete-post/${postId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete post");
+      }
+
+      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+    } catch (error) {
+      console.error("Error deleting post:", error.message);
+    }
+  };
+
   return (
     <div className="container mx-auto py-8">
       <div className="grid grid-cols-3 gap-4 mb-8">
@@ -71,7 +94,10 @@ const Dashboard = () => {
                   </td>
                   <td className="p-4">
                     <button className="text-nero hover:underline">Edit</button>
-                    <button className="ml-4 text-east-side hover:underline">
+                    <button
+                      className="ml-4 text-east-side hover:underline"
+                      onClick={() => deletePostHandler(post.id)}
+                    >
                       Delete
                     </button>
                   </td>
