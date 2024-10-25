@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbtack } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
 
 const FeaturedPosts = () => {
   const [featuredPosts, setFeaturedPosts] = useState([]);
@@ -57,7 +58,9 @@ const FeaturedPosts = () => {
                   </Link>
                 </h3>
                 <p className="mb-2 break-words max-w-full">
-                  {truncateContent(post.content, 140)}
+                  <ReactMarkdown>
+                    {truncateContent(post.content, 140)}
+                  </ReactMarkdown>
                 </p>
                 <span className="mb-4">
                   <em>

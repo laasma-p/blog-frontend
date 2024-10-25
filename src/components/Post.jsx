@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
 
 const Post = () => {
   const { postId } = useParams();
@@ -72,7 +73,9 @@ const Post = () => {
             })}
           </em>
         </span>
-        <p className="text-lg">{post.content}</p>
+        <p className="text-lg">
+          <ReactMarkdown>{post.content}</ReactMarkdown>
+        </p>
       </div>
     </div>
   );

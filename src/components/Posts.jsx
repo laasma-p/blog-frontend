@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -50,7 +51,11 @@ const Posts = () => {
                     {post.title}
                   </Link>
                 </h3>
-                <p className="mb-2">{truncateContent(post.content, 140)}</p>
+                <p className="mb-2">
+                  <ReactMarkdown>
+                    {truncateContent(post.content, 140)}
+                  </ReactMarkdown>
+                </p>
                 <span className="mb-4">
                   <em>
                     Written on{" "}
