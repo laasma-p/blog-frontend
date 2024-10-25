@@ -1,4 +1,35 @@
+import { useState, useEffect } from "react";
+
 const Dashboard = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/api/admin/posts-list",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch posts");
+        }
+
+        const data = await response.json();
+        setPosts(data);
+      } catch (error) {
+        console.error("Error fetching posts:", error.message);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
   return (
     <div className="container mx-auto py-8">
       <div className="grid grid-cols-3 gap-4 mb-8">
@@ -27,38 +58,26 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b">
-              <td className="p-4">Post title</td>
-              <td className="p-4">Post date</td>
-              <td className="p-4">Post status</td>
-              <td className="p-4">
-                <button className="py-1 px-3 rounded bg-french-lilac">
-                  Unpin
-                </button>
-              </td>
-              <td className="p-4">
-                <button className="text-nero hover:underline">Edit</button>
-                <button className="ml-4 text-east-side hover:underline">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr className="border-b">
-              <td className="p-4">Post 2 title</td>
-              <td className="p-4">Post 2 date</td>
-              <td className="p-4">Post 2 status</td>
-              <td className="p-4">
-                <button className="py-1 px-3 rounded bg-french-lilac">
-                  Pin
-                </button>
-              </td>
-              <td className="p-4">
-                <button className="text-nero hover:underline">Edit</button>
-                <button className="ml-4 text-east-side hover:underline">
-                  Delete
-                </button>
-              </td>
-            </tr>
+            {posts.map((post) => {
+              return (
+                <tr className="border-b" key={post.id}>
+                  <td className="p-4">{post.title}</td>
+                  <td className="p-4">{post.date}</td>
+                  <td className="p-4">{post.status}</td>
+                  <td className="p-4">
+                    <button className="py-1 px-3 rounded bg-french-lilac">
+                      Unpin
+                    </button>
+                  </td>
+                  <td className="p-4">
+                    <button className="text-nero hover:underline">Edit</button>
+                    <button className="ml-4 text-east-side hover:underline">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
