@@ -48,8 +48,12 @@ const AddAPost = () => {
 
   return (
     <div className="bg-white-smoke min-h-screen">
-      <div className="container mx-auto py-8 px-8 flex flex-col lg:flex-row gap-2">
-        <div className="w-full lg:w-1/2 p-4 border border-chetwode-blue">
+      <div className="container mx-auto py-8 px-8 flex flex-col lg:flex-row lg:gap-4 gap-2">
+        <div
+          className={`w-full p-4 border-border-chetwode-blue ${
+            content ? "lg:w-1/2" : "lg:w-full max-w-4xl mx-auto"
+          }`}
+        >
           <h2 className="text-4xl font-semibold text-nero mb-6 text-center">
             Add a new post
           </h2>
@@ -116,14 +120,16 @@ const AddAPost = () => {
             </button>
           </form>
         </div>
-        <div className="w-full lg:w-1/2 mt-8 lg:mt-0 p-4 border border-chetwode-blue">
-          <h2 className="text-4xl font-semibold text-nero mb-6 text-center">
-            Post preview
-          </h2>
-          <div className="bg-white-smoke p-4 rounded-lg shadow-md break-all">
-            <ReactMarkdown>{content}</ReactMarkdown>
+        {content && (
+          <div className="w-full lg:w-1/2 mt-8 lg:mt-0 p-4">
+            <h2 className="text-4xl font-semibold text-nero mb-6 text-center">
+              Post preview
+            </h2>
+            <div className="bg-white-smoke p-4 rounded-lg shadow-md break-all">
+              <ReactMarkdown>{content}</ReactMarkdown>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
