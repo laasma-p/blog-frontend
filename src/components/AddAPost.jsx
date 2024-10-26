@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AddAPost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [status, setStatus] = useState("published");
+  const navigate = useNavigate();
 
   const titleChangeHandler = (event) => {
     setTitle(event.target.value);
@@ -17,13 +19,30 @@ const AddAPost = () => {
     setStatus(event.target.value);
   };
 
-  const addAPostHandler = (event) => {
+  const addAPostHandler = async (event) => {
     event.preventDefault();
 
-    console.log("Post added");
-    setTitle("");
-    setContent("");
-    setStatus("published");
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/admin/add-a-post",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({ title, content, status }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to add a post");
+      }
+
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Error adding a post:", error.message);
+    }
   };
 
   return (
