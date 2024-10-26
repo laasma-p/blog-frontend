@@ -85,6 +85,11 @@ const Dashboard = () => {
         post.id === postId ? { ...post, isPinned: !post.isPinned } : post
       );
       setPosts(updatedPosts);
+
+      const pinnedCount = updatedPosts.filter((post) => post.isPinned).length;
+      setAnalytics((prevAnalytics) => {
+        return { ...prevAnalytics, pinnedPosts: pinnedCount };
+      });
     } catch (error) {
       console.error("Error pinning a post:", error.message);
     }
@@ -139,13 +144,20 @@ const Dashboard = () => {
                       } ${
                         post.status === "draft"
                           ? "opacity-50 cursor-not-allowed"
+                          : !post.isPinned && analytics.pinnedPosts >= 3
+                          ? "opacity-75 cursor-not-allowed"
                           : ""
                       }`}
                       onClick={() => togglePinHandler(post.id)}
-                      disabled={post.status === "draft"}
+                      disabled={
+                        post.status === "draft" ||
+                        (!post.isPinned && analytics.pinnedPosts >= 3)
+                      }
                       title={
                         post.status === "draft"
                           ? "Publish first to enable pinning"
+                          : !post.isPinned && analytics.pinnedPosts >= 3
+                          ? "Maximum pinned posts reached"
                           : ""
                       }
                     >
