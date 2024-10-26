@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 
 const AddAPost = () => {
   const [title, setTitle] = useState("");
@@ -112,6 +113,12 @@ const AddAPost = () => {
           Save post
         </button>
       </form>
+      <div className="mt-8">
+        <h3 className="text-3xl font-semibold text-nero mb-6 text-center">
+          Post preview
+        </h3>
+        <ReactMarkdown>{content}</ReactMarkdown>
+      </div>
     </div>
   );
 };
