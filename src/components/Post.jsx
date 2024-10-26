@@ -73,9 +73,7 @@ const Post = () => {
             })}
           </em>
         </span>
-        <p className="text-lg">
-          <ReactMarkdown>{post.content}</ReactMarkdown>
-        </p>
+        <ReactMarkdown className="text-lg">{post.content}</ReactMarkdown>
       </div>
     </div>
   );

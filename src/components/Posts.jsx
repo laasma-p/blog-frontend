@@ -51,11 +51,9 @@ const Posts = () => {
                     {post.title}
                   </Link>
                 </h3>
-                <p className="mb-2">
-                  <ReactMarkdown>
-                    {truncateContent(post.content, 140)}
-                  </ReactMarkdown>
-                </p>
+                <ReactMarkdown className="mb-2 break-words max-w-full">
+                  {truncateContent(post.content, 140)}
+                </ReactMarkdown>
                 <span className="mb-4">
                   <em>
                     Written on{" "}
