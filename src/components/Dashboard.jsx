@@ -28,11 +28,11 @@ const Dashboard = () => {
         const data = await response.json();
         setPosts(data);
 
-        const totalPosts = data.length;
-        const pinnedPosts = data.filter((post) => post.isPinned).length;
-        const drafts = data.filter((post) => post.status === "draft").length;
-
-        setAnalytics({ totalPosts, pinnedPosts, drafts });
+        setAnalytics({
+          totalPosts: data.length,
+          pinnedPosts: data.filter((post) => post.isPinned).length,
+          drafts: data.filter((post) => post.status === "draft").length,
+        });
       } catch (error) {
         console.error("Error fetching posts:", error.message);
       }
@@ -58,7 +58,17 @@ const Dashboard = () => {
         throw new Error("Failed to delete post");
       }
 
-      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+      setPosts((prevPosts) => {
+        const updatedPosts = prevPosts.filter((post) => post.id !== postId);
+
+        setAnalytics({
+          totalPosts: updatedPosts.length,
+          pinnedPosts: updatedPosts.filter((post) => post.isPinned).length,
+          drafts: updatedPosts.filter((post) => post.status === "draft").length,
+        });
+
+        return updatedPosts;
+      });
     } catch (error) {
       console.error("Error deleting post:", error.message);
     }
@@ -81,14 +91,18 @@ const Dashboard = () => {
         throw new Error("Failed to pin a post");
       }
 
-      const updatedPosts = posts.map((post) =>
-        post.id === postId ? { ...post, isPinned: !post.isPinned } : post
-      );
-      setPosts(updatedPosts);
+      setPosts((prevPosts) => {
+        const updatedPosts = prevPosts.map((post) =>
+          post.id === postId ? { ...post, isPinned: !post.isPinned } : post
+        );
 
-      const pinnedCount = updatedPosts.filter((post) => post.isPinned).length;
-      setAnalytics((prevAnalytics) => {
-        return { ...prevAnalytics, pinnedPosts: pinnedCount };
+        setAnalytics({
+          totalPosts: updatedPosts.length,
+          pinnedPosts: updatedPosts.filter((post) => post.isPinned).length,
+          drafts: updatedPosts.filter((post) => post.status === "draft").length,
+        });
+
+        return updatedPosts;
       });
     } catch (error) {
       console.error("Error pinning a post:", error.message);
