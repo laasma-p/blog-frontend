@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
@@ -7,6 +8,7 @@ const Dashboard = () => {
     pinnedPosts: 0,
     drafts: 0,
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -109,6 +111,10 @@ const Dashboard = () => {
     }
   };
 
+  const editPostHandler = (postId) => {
+    navigate(`/add-a-post/${postId}`);
+  };
+
   return (
     <div className="container mx-auto py-8 px-8">
       <div className="grid grid-cols-3 gap-4 mb-8">
@@ -179,7 +185,12 @@ const Dashboard = () => {
                     </button>
                   </td>
                   <td className="p-4">
-                    <button className="text-nero hover:underline">Edit</button>
+                    <button
+                      className="text-nero hover:underline"
+                      onClick={() => editPostHandler(post.id)}
+                    >
+                      Edit
+                    </button>
                     <button
                       className="ml-4 text-east-side hover:underline"
                       onClick={() => deletePostHandler(post.id)}
