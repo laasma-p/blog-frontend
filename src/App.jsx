@@ -66,6 +66,14 @@ function App() {
           }
         />
         <Route
+          path="/add-a-post/:postId"
+          element={
+            <ProtectedRoute>
+              <AddAPost />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="*"
           element={<NotFound isAuthenticated={isAuthenticated} />}
         />
