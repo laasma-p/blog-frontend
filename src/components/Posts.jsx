@@ -43,7 +43,7 @@ const Posts = () => {
                 key={post.id}
                 className="p-6 border-2 border-east-side rounded-lg shadow-lg text-nero"
               >
-                <h3 className="text-2xl font-bold mb-2">
+                <h3 className="text-2xl font-bold mb-2 break-words">
                   <Link
                     to={`/post/${post.id}`}
                     className="hover:text-chetwode-blue transition-colors duration-300"
