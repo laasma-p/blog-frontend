@@ -1,11 +1,13 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
 const AddAPost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [status, setStatus] = useState("published");
+
+  const { postId } = useParams();
   const navigate = useNavigate();
 
   const titleChangeHandler = (event) => {
@@ -20,29 +22,67 @@ const AddAPost = () => {
     setStatus(event.target.value);
   };
 
-  const addAPostHandler = async (event) => {
+  useEffect(() => {
+    const fetchPost = async () => {
+      if (postId) {
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/admin/${postId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Failed to fetch the post");
+          }
+
+          const post = await response.json();
+          setTitle(post.title);
+          setContent(post.content);
+          setStatus(post.status);
+        } catch (error) {
+          console.error("Error fetching the post:", error.message);
+        }
+      }
+    };
+
+    fetchPost();
+  }, [postId]);
+
+  const addOrEditAPostHandler = async (event) => {
     event.preventDefault();
 
+    const method = postId ? "PUT" : "POST";
+
+    const url = postId
+      ? `http://localhost:3000/api/admin/edit-post/${postId}`
+      : "http://localhost:3000/api/admin/add-a-post";
+
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/admin/add-a-post",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({ title, content, status }),
-        }
-      );
+      const response = await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ title, content, status }),
+      });
 
       if (!response.ok) {
-        throw new Error("Failed to add a post");
+        throw new Error(
+          postId ? "Failed to update the post" : "Failed to add a post"
+        );
       }
 
       navigate("/dashboard");
     } catch (error) {
-      console.error("Error adding a post:", error.message);
+      console.error(
+        `Error ${postId ? "updating" : "adding"} the post`,
+        error.message
+      );
     }
   };
 
@@ -55,10 +95,10 @@ const AddAPost = () => {
           }`}
         >
           <h2 className="text-4xl font-semibold text-nero mb-6 text-center">
-            Add a new post
+            {postId ? "Edit post" : "Add a new post"}
           </h2>
           <form
-            onSubmit={addAPostHandler}
+            onSubmit={addOrEditAPostHandler}
             className="bg-white-smoke p-4 rounded-lg shadow-lg mx-auto"
           >
             <div className="mb-6">
@@ -116,7 +156,7 @@ const AddAPost = () => {
               type="submit"
               className="w-full py-2 bg-chetwode-blue text-white-smoke rounded-md shadow-md hover:bg-east-side hover:text-nero transition-colors duration-300"
             >
-              Save post
+              {postId ? "Update post" : "Add post"}
             </button>
           </form>
         </div>
