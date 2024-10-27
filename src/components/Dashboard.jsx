@@ -129,11 +129,11 @@ const Dashboard = () => {
         <table className="table-auto w-full text-left bg-white-smoke">
           <thead>
             <tr className="bg-chetwode-blue text-white-smoke">
-              <th className="p-4">Title</th>
-              <th className="p-4">Date</th>
-              <th className="p-4">Status</th>
-              <th className="p-4">Pinned</th>
-              <th className="p-4">Actions</th>
+              <th className="p-4 w-1/2">Title</th>
+              <th className="p-4 w-1/6">Date</th>
+              <th className="p-4 w-1/6">Status</th>
+              <th className="p-4 w-1/12">Pinned</th>
+              <th className="p-4 w-1/12">Actions</th>
             </tr>
           </thead>
           <tbody>
