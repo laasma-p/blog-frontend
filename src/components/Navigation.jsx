@@ -19,13 +19,21 @@ const Navigation = ({ isAuthenticated, setIsAuthenticated }) => {
           <>
             <NavLink
               to="/dashboard"
-              className="hover:text-white-smoke transition-colors duration-300"
+              className={({ isActive }) =>
+                `hover:text-white-smoke transition-colors duration-300 ${
+                  isActive ? "text-white-smoke" : ""
+                } `
+              }
             >
               Dashboard
             </NavLink>
             <NavLink
               to="/add-a-post"
-              className="hover:text-white-smoke transition-colors duration-300"
+              className={({ isActive }) =>
+                `hover:text-white-smoke transition-colors duration-300 ${
+                  isActive ? "text-white-smoke" : ""
+                } `
+              }
             >
               Add A Post
             </NavLink>
@@ -39,7 +47,11 @@ const Navigation = ({ isAuthenticated, setIsAuthenticated }) => {
         ) : (
           <NavLink
             to="/"
-            className="hover:text-white-smoke transition-colors duration-300"
+            className={({ isActive }) =>
+              `hover:text-white-smoke transition-colors duration-300 ${
+                isActive ? "text-white-smoke" : ""
+              } `
+            }
           >
             Home
           </NavLink>
