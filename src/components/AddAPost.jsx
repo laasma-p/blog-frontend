@@ -46,6 +46,10 @@ const AddAPost = () => {
         } catch (error) {
           console.error("Error fetching the post:", error.message);
         }
+      } else {
+        setTitle("");
+        setContent("");
+        setStatus("published");
       }
     };
 
