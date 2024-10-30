@@ -184,7 +184,7 @@ const Dashboard = () => {
                       {post.isPinned ? "Unpin" : "Pin"}
                     </button>
                   </td>
-                  <td className="p-4">
+                  <td className="p-4 flex">
                     <button
                       className="text-nero hover:underline"
                       onClick={() => editPostHandler(post.id)}
