@@ -28,7 +28,11 @@ const Login = ({ setIsAuthenticated }) => {
     const data = await response.json();
 
     if (response.ok) {
+      const expirationTime = Date.now() + 3600000;
+
       localStorage.setItem("token", data.token);
+      localStorage.setItem("expirationTime", expirationTime);
+
       setIsAuthenticated(true);
       navigate("/dashboard");
     } else {
