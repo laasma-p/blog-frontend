@@ -5,6 +5,7 @@ const Navigation = ({ isAuthenticated, setIsAuthenticated }) => {
 
   const loggingOutHandler = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("expirationTime");
     setIsAuthenticated(false);
     navigate("/");
   };
