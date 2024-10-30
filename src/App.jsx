@@ -14,8 +14,29 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsAuthenticated(token !== null);
+    const checkToken = () => {
+      const token = localStorage.getItem("token");
+      const expirationTime = localStorage.getItem("expirationTime");
+
+      if (token && expirationTime) {
+        const currentTime = Date.now();
+
+        if (currentTime > expirationTime) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("expirationTime");
+          setIsAuthenticated(false);
+        } else {
+          setIsAuthenticated(true);
+        }
+      } else {
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkToken();
+    const interval = setInterval(checkToken, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
