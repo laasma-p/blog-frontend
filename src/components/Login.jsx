@@ -43,10 +43,7 @@ const Login = ({ setIsAuthenticated }) => {
   return (
     <div className="bg-white-smoke min-h-screen">
       <div className="container mx-auto py-8 px-4 flex flex-col">
-        <div
-          className="p-4 w-full border-border-chetwode-blue
-           max-w-xl mx-auto"
-        >
+        <div className="p-4 w-full max-w-xl mx-auto">
           <h2 className="text-4xl font-semibold text-nero mb-6 text-center">
             Login
           </h2>
