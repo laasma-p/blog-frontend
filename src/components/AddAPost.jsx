@@ -6,6 +6,7 @@ const AddAPost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [status, setStatus] = useState("published");
+  const [loading, setLoading] = useState(false);
 
   const { postId } = useParams();
   const navigate = useNavigate();
@@ -25,6 +26,8 @@ const AddAPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       if (postId) {
+        setLoading(true);
+
         try {
           const response = await fetch(
             `http://localhost:3000/api/admin/${postId}`,
@@ -45,7 +48,9 @@ const AddAPost = () => {
           setStatus(post.status);
         } catch (error) {
           console.error("Error fetching the post:", error.message);
+          setLoading(false);
         }
+        setLoading(false);
       } else {
         setTitle("");
         setContent("");
@@ -58,6 +63,7 @@ const AddAPost = () => {
 
   const addOrEditAPostHandler = async (event) => {
     event.preventDefault();
+    setLoading(true);
 
     const method = postId ? "PUT" : "POST";
 
@@ -87,7 +93,9 @@ const AddAPost = () => {
         `Error ${postId ? "updating" : "adding"} the post`,
         error.message
       );
+      setLoading(false);
     }
+    setLoading(false);
   };
 
   return (
@@ -158,9 +166,20 @@ const AddAPost = () => {
             </div>
             <button
               type="submit"
-              className="w-full py-2 bg-chetwode-blue text-white-smoke rounded-md shadow-md hover:bg-east-side hover:text-nero transition-colors duration-300"
+              className={`w-full py-2 bg-chetwode-blue text-white-smoke rounded-md shadow-md transition-colors duration-300 ${
+                loading
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-east-side hover:text-nero"
+              }`}
+              disabled={loading}
             >
-              {postId ? "Update post" : "Add post"}
+              {loading
+                ? postId
+                  ? "Updating..."
+                  : "Adding..."
+                : postId
+                ? "Update post"
+                : "Add post"}
             </button>
           </form>
         </div>

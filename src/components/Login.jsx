@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Login = ({ setIsAuthenticated }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const emailChangeHandler = (event) => {
@@ -16,6 +17,7 @@ const Login = ({ setIsAuthenticated }) => {
 
   const loggingInHandler = async (event) => {
     event.preventDefault();
+    setLoading(true);
 
     const response = await fetch("http://localhost:3000/api/auth/login", {
       method: "POST",
@@ -37,7 +39,9 @@ const Login = ({ setIsAuthenticated }) => {
       navigate("/dashboard");
     } else {
       console.error("Cannot log in.");
+      setLoading(false);
     }
+    setLoading(false);
   };
 
   return (
@@ -85,8 +89,15 @@ const Login = ({ setIsAuthenticated }) => {
                 onChange={passwordChangeHandler}
               />
             </div>
-            <button className="w-full py-2 bg-chetwode-blue text-white-smoke rounded-md shadow-md hover:bg-east-side hover:text-nero transition-colors duration-300">
-              Login
+            <button
+              className={`w-full py-2 bg-chetwode-blue text-white-smoke rounded-md shadow-md transition-colors duration-300 ${
+                loading
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-east-side hover:text-nero"
+              }`}
+              disabled={loading}
+            >
+              {loading ? "Logging in..." : "Login"}
             </button>
           </form>
         </div>

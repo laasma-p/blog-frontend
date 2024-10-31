@@ -6,6 +6,7 @@ import ReactMarkdown from "react-markdown";
 
 const FeaturedPosts = () => {
   const [featuredPosts, setFeaturedPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchFeaturedPosts = async () => {
@@ -15,7 +16,9 @@ const FeaturedPosts = () => {
         setFeaturedPosts(data);
       } catch (error) {
         console.error("Error fetching featured posts:", error.message);
+        setLoading(false);
       }
+      setLoading(false);
     };
 
     fetchFeaturedPosts();
@@ -35,7 +38,9 @@ const FeaturedPosts = () => {
   return (
     <div className="pb-10 px-4">
       <h2 className="text-3xl py-4 font-semibold text-nero">Featured</h2>
-      {featuredPosts.length === 0 ? (
+      {loading ? (
+        <p className="text-lg">Loading featured posts...</p>
+      ) : featuredPosts.length === 0 ? (
         <p className="text-lg">No featured posts found.</p>
       ) : (
         <div className="grid md:grid-cols-3 gap-4">

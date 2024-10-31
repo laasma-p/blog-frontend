@@ -8,6 +8,7 @@ const Dashboard = () => {
     pinnedPosts: 0,
     drafts: 0,
   });
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,7 +38,9 @@ const Dashboard = () => {
         });
       } catch (error) {
         console.error("Error fetching posts:", error.message);
+        setLoading(false);
       }
+      setLoading(false);
     };
 
     fetchPosts();
@@ -132,77 +135,85 @@ const Dashboard = () => {
         </div>
       </div>
       <div>
-        <table className="table-auto w-full text-left bg-white-smoke">
-          <thead>
-            <tr className="bg-chetwode-blue text-white-smoke">
-              <th className="p-4 w-1/2">Title</th>
-              <th className="p-4 w-1/6">Date</th>
-              <th className="p-4 w-1/6">Status</th>
-              <th className="p-4 w-1/12">Pinned</th>
-              <th className="p-4 w-1/12">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {posts.map((post) => {
-              return (
-                <tr className="border-b" key={post.id}>
-                  <td className="p-4">{post.title}</td>
-                  <td className="p-4">
-                    {new Date(post.date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </td>
-                  <td className="p-4">
-                    {post.status === "published" ? "Published" : "Draft"}
-                  </td>
-                  <td className="p-4">
-                    <button
-                      className={`py-1 px-3 rounded ${
-                        post.isPinned ? "bg-east-side" : "bg-french-lilac"
-                      } ${
-                        post.status === "draft"
-                          ? "opacity-50 cursor-not-allowed"
-                          : !post.isPinned && analytics.pinnedPosts >= 3
-                          ? "opacity-75 cursor-not-allowed"
-                          : ""
-                      }`}
-                      onClick={() => togglePinHandler(post.id)}
-                      disabled={
-                        post.status === "draft" ||
-                        (!post.isPinned && analytics.pinnedPosts >= 3)
-                      }
-                      title={
-                        post.status === "draft"
-                          ? "Publish first to enable pinning"
-                          : !post.isPinned && analytics.pinnedPosts >= 3
-                          ? "Maximum pinned posts reached"
-                          : ""
-                      }
-                    >
-                      {post.isPinned ? "Unpin" : "Pin"}
-                    </button>
-                  </td>
-                  <td className="p-4 flex">
-                    <button
-                      className="text-nero hover:underline"
-                      onClick={() => editPostHandler(post.id)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="ml-4 text-east-side hover:underline"
-                      onClick={() => deletePostHandler(post.id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        {loading ? (
+          <p className="text-lg">Loading posts list...</p>
+        ) : posts.length === 0 ? (
+          <p className="text-lg">No posts found.</p>
+        ) : (
+          <table className="table-auto w-full text-left bg-white-smoke">
+            <thead>
+              <tr className="bg-chetwode-blue text-white-smoke">
+                <th className="p-4 w-1/2">Title</th>
+                <th className="p-4 w-1/6">Date</th>
+                <th className="p-4 w-1/6">Status</th>
+                <th className="p-4 w-1/12">Pinned</th>
+                <th className="p-4 w-1/12">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {posts.map((post) => {
+                return (
+                  <tr className="border-b" key={post.id}>
+                    <td className="p-4">{post.title}</td>
+                    <td className="p-4">
+                      {new Date(post.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </td>
+                    <td className="p-4">
+                      {post.status === "published" ? "Published" : "Draft"}
+                    </td>
+                    <td className="p-4">
+                      <button
+                        className={`py-1 px-3 rounded ${
+                          post.isPinned ? "bg-east-side" : "bg-french-lilac"
+                        } ${
+                          post.status === "draft"
+                            ? "opacity-50 cursor-not-allowed"
+                            : !post.isPinned && analytics.pinnedPosts >= 3
+                            ? "opacity-75 cursor-not-allowed"
+                            : ""
+                        }`}
+                        onClick={() => togglePinHandler(post.id)}
+                        disabled={
+                          post.status === "draft" ||
+                          (!post.isPinned && analytics.pinnedPosts >= 3)
+                        }
+                        title={
+                          post.status === "draft"
+                            ? "Publish first to enable pinning"
+                            : !post.isPinned && analytics.pinnedPosts >= 3
+                            ? "Maximum pinned posts reached"
+                            : ""
+                        }
+                      >
+                        {post.isPinned ? "Unpin" : "Pin"}
+                      </button>
+                    </td>
+                    <td className="p-4 flex flex-col lg:flex-row">
+                      <div className="justify-center items-center">
+                        <button
+                          className="text-nero hover:underline"
+                          onClick={() => editPostHandler(post.id)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="ml-0 2xl:ml-4 text-east-side hover:underline"
+                          onClick={() => deletePostHandler(post.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

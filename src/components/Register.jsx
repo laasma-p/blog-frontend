@@ -6,6 +6,7 @@ const Register = () => {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const formDataChangeHandler = (event) => {
     setFormData({
@@ -16,6 +17,7 @@ const Register = () => {
 
   const registerHandler = async (event) => {
     event.preventDefault();
+    setLoading(true);
 
     try {
       const response = await fetch("http://localhost:3000/api/auth/register", {
@@ -27,8 +29,10 @@ const Register = () => {
       });
 
       const data = await response.json();
+      setLoading(false);
     } catch (error) {
       console.error("Error registering user:", error.message);
+      setLoading(false);
     }
   };
 
@@ -96,9 +100,14 @@ const Register = () => {
             </div>
             <button
               type="submit"
-              className="w-full py-2 bg-chetwode-blue text-white-smoke rounded-md shadow-md hover:bg-east-side hover:text-nero transition-colors duration-300"
+              className={`w-full py-2 bg-chetwode-blue text-white-smoke rounded-md shadow-md transition-colors duration-300 ${
+                loading
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-east-side hover:text-nero"
+              }`}
+              disabled={loading}
             >
-              Register
+              {loading ? "Registering..." : "Register"}
             </button>
           </form>
         </div>

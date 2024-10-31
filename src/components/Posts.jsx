@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -13,7 +14,9 @@ const Posts = () => {
         setPosts(data);
       } catch (error) {
         console.error("Error fetching posts:", error.message);
+        setLoading(false);
       }
+      setLoading(false);
     };
 
     fetchPosts();
@@ -33,7 +36,9 @@ const Posts = () => {
   return (
     <div className="pb-10 px-4">
       <h2 className="text-3xl pb-4 font-semibold text-nero">Posts</h2>
-      {posts.length === 0 ? (
+      {loading ? (
+        <p className="text-lg">Loading posts...</p>
+      ) : posts.length === 0 ? (
         <p className="text-lg">No posts found.</p>
       ) : (
         <div className="max-w-3xl grid gap-4">
