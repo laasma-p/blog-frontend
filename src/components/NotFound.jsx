@@ -8,21 +8,12 @@ const NotFound = ({ isAuthenticated }) => {
         The content you are looking for either does not exist or has been
         removed.
       </p>
-      {isAuthenticated ? (
-        <Link
-          to="/dashboard"
-          className="text-lg text-chetwode-blue hover:text-east-side transition-colors duration-300"
-        >
-          Go back to dashboard
-        </Link>
-      ) : (
-        <Link
-          to="/"
-          className="text-lg text-chetwode-blue hover:text-east-side transition-colors duration-300"
-        >
-          Go back to home
-        </Link>
-      )}
+      <Link
+        to={isAuthenticated ? "/dashboard" : "/"}
+        className="text-lg text-chetwode-blue hover:text-east-side transition-colors duration-300"
+      >
+        Go back to {isAuthenticated ? "dashboard" : "home"}
+      </Link>
     </div>
   );
 };
