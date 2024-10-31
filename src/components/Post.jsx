@@ -70,7 +70,8 @@ const Post = () => {
               year: "numeric",
               month: "long",
               day: "numeric",
-            })}
+            })}{" "}
+            by {post.admin.firstName}
           </em>
         </span>
         <ReactMarkdown className="text-lg">{post.content}</ReactMarkdown>
