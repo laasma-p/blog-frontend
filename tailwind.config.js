@@ -10,6 +10,8 @@ export default {
         "misty-rose": "#FFE6E6",
         "white-smoke": "#F8F8F8",
         nero: "#2C2C2C",
+        success: "#6BBF59",
+        error: "#E63946",
       },
     },
   },
