@@ -34,7 +34,7 @@ function App() {
     };
 
     checkToken();
-    const interval = setInterval(checkToken, 1000);
+    const interval = setInterval(checkToken, 60000);
 
     return () => clearInterval(interval);
   }, []);
