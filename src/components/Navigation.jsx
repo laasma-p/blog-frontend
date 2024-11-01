@@ -41,6 +41,7 @@ const Navigation = ({ isAuthenticated, setIsAuthenticated }) => {
             <button
               className="hover:text-white-smoke transition-colors duration-300"
               onClick={loggingOutHandler}
+              aria-label="Log out"
             >
               Log Out
             </button>
