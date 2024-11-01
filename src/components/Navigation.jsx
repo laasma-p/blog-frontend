@@ -23,7 +23,7 @@ const Navigation = ({ isAuthenticated, setIsAuthenticated }) => {
               className={({ isActive }) =>
                 `hover:text-white-smoke transition-colors duration-300 ${
                   isActive ? "text-white-smoke" : ""
-                } `
+                }`
               }
             >
               Dashboard
@@ -33,7 +33,7 @@ const Navigation = ({ isAuthenticated, setIsAuthenticated }) => {
               className={({ isActive }) =>
                 `hover:text-white-smoke transition-colors duration-300 ${
                   isActive ? "text-white-smoke" : ""
-                } `
+                }`
               }
             >
               Add A Post
@@ -51,7 +51,7 @@ const Navigation = ({ isAuthenticated, setIsAuthenticated }) => {
             className={({ isActive }) =>
               `hover:text-white-smoke transition-colors duration-300 ${
                 isActive ? "text-white-smoke" : ""
-              } `
+              }`
             }
           >
             Home
