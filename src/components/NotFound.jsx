@@ -2,7 +2,10 @@ import { Link } from "react-router-dom";
 
 const NotFound = ({ isAuthenticated }) => {
   return (
-    <div className="flex flex-col items-center min-h-screen bg-white-smoke text-center">
+    <main
+      className="flex flex-col items-center min-h-screen bg-white-smoke text-center"
+      role="alert"
+    >
       <h2 className="text-3xl font-bold text-nero mt-56 mb-4">404 Not Found</h2>
       <p className="text-lg text-nero mb-4">
         The content you are looking for either does not exist or has been
@@ -14,7 +17,7 @@ const NotFound = ({ isAuthenticated }) => {
       >
         Go back to {isAuthenticated ? "dashboard" : "home"}
       </Link>
-    </div>
+    </main>
   );
 };
 
