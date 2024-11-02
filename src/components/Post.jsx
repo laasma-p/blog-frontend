@@ -71,8 +71,20 @@ const Post = () => {
               month: "long",
               day: "numeric",
             })}{" "}
-            by {post.admin.firstName}
+            by {post.admin.firstName} |{" "}
           </em>
+          {post.editDate && post.editDate !== post.date && (
+            <>
+              Edited on{" "}
+              <strong>
+                {new Date(post.editDate).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </strong>
+            </>
+          )}
         </span>
         <ReactMarkdown className="text-lg">{post.content}</ReactMarkdown>
       </div>
