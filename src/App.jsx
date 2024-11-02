@@ -87,7 +87,7 @@ function App() {
           }
         />
         <Route
-          path="/add-a-post/:postId"
+          path="/edit-post/:postId"
           element={
             <ProtectedRoute>
               <AddAPost />

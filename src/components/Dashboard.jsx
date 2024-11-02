@@ -115,7 +115,7 @@ const Dashboard = () => {
   };
 
   const editPostHandler = (postId) => {
-    navigate(`/add-a-post/${postId}`);
+    navigate(`/edit-post/${postId}`);
   };
 
   return (
