@@ -9,6 +9,7 @@ import Dashboard from "./components/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AddAPost from "./components/AddAPost";
 import Profile from "./components/Profile";
+import About from "./components/About";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -70,6 +71,10 @@ function App() {
         <Route
           path="/post/:postId"
           element={isAuthenticated ? <Navigate to="/dashboard" /> : <Post />}
+        />
+        <Route
+          path="/about-me"
+          element={isAuthenticated ? <Navigate to="/dashboard" /> : <About />}
         />
         <Route
           path="/dashboard"
