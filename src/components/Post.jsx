@@ -71,7 +71,14 @@ const Post = () => {
               month: "long",
               day: "numeric",
             })}{" "}
-            by {post.admin.firstName} |{" "}
+            by{" "}
+            <Link
+              to="/about-me"
+              className="font-bold text-chetwode-blue hover:underline"
+            >
+              {post.admin.firstName}
+            </Link>{" "}
+            |{" "}
           </em>
           {post.editDate && post.editDate !== post.date && (
             <>
