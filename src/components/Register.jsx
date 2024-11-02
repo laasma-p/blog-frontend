@@ -69,13 +69,17 @@ const Register = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        setErrorMessage(data.message);
+        setErrorMessage(
+          data.message || "Registration failed. Please try again later."
+        );
       } else {
-        setSuccessMessage(data.message);
+        setSuccessMessage(data.message || "User successfully registered.");
         setFormData({ firstName: "", email: "", password: "" });
       }
     } catch (error) {
-      setErrorMessage(error.message);
+      setErrorMessage(
+        error.message || "An unexpected error occured. Please try again."
+      );
     } finally {
       setLoading(false);
     }
