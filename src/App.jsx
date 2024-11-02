@@ -8,6 +8,7 @@ import NotFound from "./components/NotFound";
 import Dashboard from "./components/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AddAPost from "./components/AddAPost";
+import Profile from "./components/Profile";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -91,6 +92,14 @@ function App() {
           element={
             <ProtectedRoute>
               <AddAPost />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
             </ProtectedRoute>
           }
         />
