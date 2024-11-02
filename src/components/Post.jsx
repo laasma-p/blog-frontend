@@ -86,7 +86,7 @@ const Post = () => {
             </>
           )}
         </span>
-        <ReactMarkdown className="text-lg">{post.content}</ReactMarkdown>
+        <ReactMarkdown className="text-lg pt-3">{post.content}</ReactMarkdown>
       </div>
     </div>
   );
