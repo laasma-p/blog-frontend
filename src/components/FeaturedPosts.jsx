@@ -68,7 +68,7 @@ const FeaturedPosts = () => {
                 <span className="mb-4">
                   <em>
                     Written on{" "}
-                    {new Date(post.date).toLocaleDateString("en-US", {
+                    {new Date(post.createdAt).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",

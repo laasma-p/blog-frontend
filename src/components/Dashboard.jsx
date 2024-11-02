@@ -156,7 +156,7 @@ const Dashboard = () => {
                   <tr className="border-b" key={post.id}>
                     <td className="p-4">{post.title}</td>
                     <td className="p-4">
-                      {new Date(post.date).toLocaleDateString("en-US", {
+                      {new Date(post.createdAt).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "long",
                         day: "numeric",
