@@ -7,17 +7,55 @@ const Register = () => {
     password: "",
   });
   const [loading, setLoading] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const formDataChangeHandler = (event) => {
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
     });
+    setValidationErrors((prevErrors) => {
+      return { ...prevErrors, [event.target.name]: null };
+    });
+  };
+
+  const validateForm = () => {
+    const errors = {};
+
+    if (!formData.firstName) {
+      errors.firstName = "First name is required.";
+    }
+
+    if (!formData.email) {
+      errors.email = "Email is required.";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Email format is invalid.";
+    }
+
+    if (!formData.password) {
+      errors.password = "Password is required.";
+    } else if (formData.password.length < 8) {
+      errors.password = "Password must be at least 8 characters long.";
+    }
+
+    return errors;
   };
 
   const registerHandler = async (event) => {
     event.preventDefault();
     setLoading(true);
+    setSuccessMessage("");
+    setErrorMessage("");
+
+    const errors = validateForm();
+
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await fetch("http://localhost:3000/api/auth/register", {
@@ -29,9 +67,16 @@ const Register = () => {
       });
 
       const data = await response.json();
-      setLoading(false);
+
+      if (!response.ok) {
+        setErrorMessage(data.message);
+      } else {
+        setSuccessMessage(data.message);
+        setFormData({ firstName: "", email: "", password: "" });
+      }
     } catch (error) {
-      console.error("Error registering user:", error.message);
+      setErrorMessage(error.message);
+    } finally {
       setLoading(false);
     }
   };
@@ -43,6 +88,12 @@ const Register = () => {
           <h2 className="text-4xl font-semibold text-nero mb-6 text-center">
             Register
           </h2>
+          {successMessage && (
+            <p className="text-mantis text-md text-center">{successMessage}</p>
+          )}
+          {errorMessage && (
+            <p className="text-amaranth text-md text-center">{errorMessage}</p>
+          )}
           <form
             onSubmit={registerHandler}
             className="bg-white-smoke p-4 rounded-lg shadow-lg mx-auto"
@@ -58,11 +109,17 @@ const Register = () => {
                 type="text"
                 name="firstName"
                 id="firstName"
-                className="p-2 w-full border border-chetwode-blue rounded-md focus:outline-none focus:ring-2 focus:ring-east-side"
-                required
+                className={`p-2 w-full border rounded-md focus:outline-none focus:ring-2 ${
+                  validationErrors.firstName
+                    ? "border-amaranth focus:ring-amaranth"
+                    : "border-chetwode-blue focus:ring-chetwode-blue"
+                }`}
                 value={formData.firstName}
                 onChange={formDataChangeHandler}
               />
+              {validationErrors.firstName && (
+                <p className="text-amaranth">{validationErrors.firstName}</p>
+              )}
             </div>
             <div className="mb-6">
               <label
@@ -75,11 +132,17 @@ const Register = () => {
                 type="email"
                 name="email"
                 id="email"
-                className="p-2 w-full border border-chetwode-blue rounded-md focus:outline-none focus:ring-2 focus:ring-east-side"
-                required
+                className={`p-2 w-full border rounded-md focus:outline-none focus:ring-2 ${
+                  validationErrors.email
+                    ? "border-amaranth focus:ring-amaranth"
+                    : "border-chetwode-blue focus:ring-chetwode-blue"
+                }`}
                 value={formData.email}
                 onChange={formDataChangeHandler}
               />
+              {validationErrors.email && (
+                <p className="text-amaranth">{validationErrors.email}</p>
+              )}
             </div>
             <div className="mb-6">
               <label
@@ -92,11 +155,17 @@ const Register = () => {
                 type="password"
                 name="password"
                 id="password"
-                className="p-2 w-full border border-chetwode-blue rounded-md focus:outline-none focus:ring-2 focus:ring-east-side"
-                required
+                className={`p-2 w-full border rounded-md focus:outline-none focus:ring-2 ${
+                  validationErrors.password
+                    ? "border-amaranth focus:ring-amaranth"
+                    : "border-chetwode-blue focus:ring-chetwode-blue"
+                }`}
                 value={formData.password}
                 onChange={formDataChangeHandler}
               />
+              {validationErrors.password && (
+                <p className="text-amaranth">{validationErrors.password}</p>
+              )}
             </div>
             <button
               type="submit"
