@@ -65,7 +65,9 @@ const Login = ({ setIsAuthenticated }) => {
       const data = await response.json();
 
       if (!response.ok) {
-        setErrorMessage(data.message);
+        setErrorMessage(
+          data.message || "Login failed. Please try again later."
+        );
       } else {
         const expirationTime = Date.now() + 3600000;
 
@@ -76,7 +78,9 @@ const Login = ({ setIsAuthenticated }) => {
         navigate("/dashboard");
       }
     } catch (error) {
-      setErrorMessage(data.message);
+      setErrorMessage(
+        error.message || "An unexpected error occured. Please try again."
+      );
     } finally {
       setLoading(false);
     }
