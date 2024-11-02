@@ -38,6 +38,16 @@ const Navigation = ({ isAuthenticated, setIsAuthenticated }) => {
             >
               Add A Post
             </NavLink>
+            <NavLink
+              to="/profile"
+              className={({ isActive }) =>
+                `hover:text-white-smoke transition-colors duration-300 ${
+                  isActive ? "text-white-smoke" : ""
+                }`
+              }
+            >
+              Profile
+            </NavLink>
             <button
               className="hover:text-white-smoke transition-colors duration-300"
               onClick={loggingOutHandler}
