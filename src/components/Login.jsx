@@ -79,7 +79,7 @@ const Login = ({ setIsAuthenticated }) => {
       }
     } catch (error) {
       setErrorMessage(
-        error.message || "An unexpected error occured. Please try again."
+        error.message || "An unexpected error occurred. Please try again."
       );
     } finally {
       setLoading(false);
