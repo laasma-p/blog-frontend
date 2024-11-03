@@ -121,7 +121,10 @@ const Dashboard = () => {
         return updatedPosts;
       });
 
-      setSuccessMessage("Post pinned.");
+      const updatedPost = posts.find((post) => post.id === postId);
+      setSuccessMessage(
+        !updatedPost.isPinned ? "Post pinned." : "Post unpinned."
+      );
     } catch (error) {
       setErrorMessage(
         error.message || "Unexpected error occurred. Please try again."
