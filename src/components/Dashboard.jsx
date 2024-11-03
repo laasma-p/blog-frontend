@@ -9,6 +9,9 @@ const Dashboard = () => {
     drafts: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,11 +39,15 @@ const Dashboard = () => {
           pinnedPosts: data.filter((post) => post.isPinned).length,
           drafts: data.filter((post) => post.status === "draft").length,
         });
+
+        setErrorMessage("");
       } catch (error) {
-        console.error("Error fetching posts:", error.message);
+        setErrorMessage(
+          error.message || "Unexpected error occurred. Please try again."
+        );
+      } finally {
         setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchPosts();
@@ -60,7 +67,7 @@ const Dashboard = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to delete post");
+        throw new Error("Failed to delete post.");
       }
 
       setPosts((prevPosts) => {
@@ -74,8 +81,12 @@ const Dashboard = () => {
 
         return updatedPosts;
       });
+
+      setSuccessMessage("Post deleted successfully.");
     } catch (error) {
-      console.error("Error deleting post:", error.message);
+      setErrorMessage(
+        error.message || "Unexpected error occurred. Please try again."
+      );
     }
   };
 
@@ -93,7 +104,7 @@ const Dashboard = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to pin a post");
+        throw new Error("Failed to pin a post.");
       }
 
       setPosts((prevPosts) => {
@@ -109,8 +120,12 @@ const Dashboard = () => {
 
         return updatedPosts;
       });
+
+      setSuccessMessage("Post pinned.");
     } catch (error) {
-      console.error("Error pinning a post:", error.message);
+      setErrorMessage(
+        error.message || "Unexpected error occurred. Please try again."
+      );
     }
   };
 
@@ -135,6 +150,12 @@ const Dashboard = () => {
         </div>
       </div>
       <div>
+        {successMessage && (
+          <p className="text-mantis text-lg pb-3">{successMessage}</p>
+        )}
+        {errorMessage && (
+          <p className="text-amaranth text-lg pb-3">{errorMessage}</p>
+        )}
         {loading ? (
           <p className="text-lg">Loading posts list...</p>
         ) : posts.length === 0 ? (
