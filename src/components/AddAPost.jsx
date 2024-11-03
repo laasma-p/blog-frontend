@@ -7,16 +7,24 @@ const AddAPost = () => {
   const [content, setContent] = useState("");
   const [status, setStatus] = useState("published");
   const [loading, setLoading] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { postId } = useParams();
   const navigate = useNavigate();
 
   const titleChangeHandler = (event) => {
     setTitle(event.target.value);
+    setValidationErrors((prevErrors) => {
+      return { ...prevErrors, title: null };
+    });
   };
 
   const contentChangeHandler = (event) => {
     setContent(event.target.value);
+    setValidationErrors((prevErrors) => {
+      return { ...prevErrors, content: null };
+    });
   };
 
   const statusChangeHandler = (event) => {
@@ -47,10 +55,10 @@ const AddAPost = () => {
           setContent(post.content);
           setStatus(post.status);
         } catch (error) {
-          console.error("Error fetching the post:", error.message);
+          setErrorMessage(error.message);
+        } finally {
           setLoading(false);
         }
-        setLoading(false);
       } else {
         setTitle("");
         setContent("");
@@ -61,9 +69,32 @@ const AddAPost = () => {
     fetchPost();
   }, [postId]);
 
+  const validateForm = () => {
+    const errors = {};
+
+    if (!title) {
+      errors.title = "Title is required.";
+    }
+
+    if (!content) {
+      errors.content = "Content is required.";
+    }
+
+    return errors;
+  };
+
   const addOrEditAPostHandler = async (event) => {
     event.preventDefault();
     setLoading(true);
+    setErrorMessage("");
+
+    const errors = validateForm();
+
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
+      setLoading(false);
+      return;
+    }
 
     const method = postId ? "PUT" : "POST";
 
@@ -89,13 +120,10 @@ const AddAPost = () => {
 
       navigate("/dashboard");
     } catch (error) {
-      console.error(
-        `Error ${postId ? "updating" : "adding"} the post`,
-        error.message
-      );
+      setErrorMessage(error.message);
+    } finally {
       setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -109,6 +137,9 @@ const AddAPost = () => {
           <h2 className="text-4xl font-semibold text-nero mb-6 text-center">
             {postId ? "Edit post" : "Add a new post"}
           </h2>
+          {errorMessage && (
+            <p className="text-amaranth text-md text-center">{errorMessage}</p>
+          )}
           <form
             onSubmit={addOrEditAPostHandler}
             className="bg-white-smoke p-4 rounded-lg shadow-lg mx-auto"
@@ -123,12 +154,18 @@ const AddAPost = () => {
               <input
                 type="text"
                 id="title"
-                className="w-full p-2 border border-chetwode-blue rounded-md focus:outline-none focus:ring-2 focus:ring-east-side"
+                className={`p-2 w-full border rounded-md focus:outline-none focus:ring-2 ${
+                  validationErrors.title
+                    ? "border-amaranth focus:ring-amaranth"
+                    : "border-chetwode-blue focus:ring-chetwode-blue"
+                }`}
                 value={title}
                 onChange={titleChangeHandler}
-                required
                 placeholder="Enter the title of the post"
               />
+              {validationErrors.title && (
+                <p className="text-amaranth">{validationErrors.title}</p>
+              )}
             </div>
             <div className="mb-6">
               <label
@@ -139,13 +176,19 @@ const AddAPost = () => {
               </label>
               <textarea
                 id="content"
-                className="w-full p-2 border border-chetwode-blue rounded-md focus:outline-none focus:ring-2 focus:ring-east-side"
+                className={`p-2 w-full border rounded-md focus:outline-none focus:ring-2 ${
+                  validationErrors.title
+                    ? "border-amaranth focus:ring-amaranth"
+                    : "border-chetwode-blue focus:ring-chetwode-blue"
+                }`}
                 value={content}
                 onChange={contentChangeHandler}
-                required
                 placeholder="Write what is on your mind here"
                 rows="5"
               />
+              {validationErrors.content && (
+                <p className="text-amaranth">{validationErrors.content}</p>
+              )}
             </div>
             <div className="mb-6">
               <label
