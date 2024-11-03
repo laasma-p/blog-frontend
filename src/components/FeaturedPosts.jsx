@@ -7,18 +7,26 @@ import ReactMarkdown from "react-markdown";
 const FeaturedPosts = () => {
   const [featuredPosts, setFeaturedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const fetchFeaturedPosts = async () => {
       try {
         const response = await fetch("http://localhost:3000/api/posts/pinned");
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch the featured posts.");
+        }
+
         const data = await response.json();
         setFeaturedPosts(data);
       } catch (error) {
-        console.error("Error fetching featured posts:", error.message);
+        setErrorMessage(
+          error.message || "An unexpected error occurred. Please try again."
+        );
+      } finally {
         setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchFeaturedPosts();
@@ -40,6 +48,8 @@ const FeaturedPosts = () => {
       <h2 className="text-3xl py-4 font-semibold text-nero">Featured</h2>
       {loading ? (
         <p className="text-lg">Loading featured posts...</p>
+      ) : errorMessage ? (
+        <p className="text-lg text-amaranth">{errorMessage}</p>
       ) : featuredPosts.length === 0 ? (
         <p className="text-lg">No featured posts found.</p>
       ) : (

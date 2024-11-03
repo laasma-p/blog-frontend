@@ -5,18 +5,26 @@ import ReactMarkdown from "react-markdown";
 const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const response = await fetch("http://localhost:3000/api/posts");
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch the posts.");
+        }
+
         const data = await response.json();
         setPosts(data);
       } catch (error) {
-        console.error("Error fetching posts:", error.message);
+        setErrorMessage(
+          error.message || "An unexpected error occurred. Please try again."
+        );
+      } finally {
         setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchPosts();
@@ -38,6 +46,8 @@ const Posts = () => {
       <h2 className="text-3xl pb-4 font-semibold text-nero">Posts</h2>
       {loading ? (
         <p className="text-lg">Loading posts...</p>
+      ) : errorMessage ? (
+        <p className="text-lg text-amaranth">{errorMessage}</p>
       ) : posts.length === 0 ? (
         <p className="text-lg">No posts found.</p>
       ) : (

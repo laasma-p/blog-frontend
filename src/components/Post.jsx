@@ -6,23 +6,31 @@ const Post = () => {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const fetchPost = async () => {
       setErrorMessage(null);
 
-      const response = await fetch(`http://localhost:3000/api/posts/${postId}`);
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/posts/${postId}`
+        );
 
-      if (response.ok) {
-        const data = await response.json();
-        setPost(data);
-      } else {
-        setErrorMessage("The post does not exist or has been removed.");
-        setPost(null);
+        if (!response.ok) {
+          setErrorMessage("The post does not exist or has been removed.");
+        } else {
+          const data = await response.json();
+          setPost(data);
+        }
+      } catch (error) {
+        setErrorMessage(
+          error.message ||
+            "An unexpected error occured while fetching the post."
+        );
+      } finally {
+        setLoading(false);
       }
-
-      setLoading(false);
     };
 
     fetchPost();
