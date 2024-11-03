@@ -55,7 +55,7 @@ const AddAPost = () => {
           setContent(post.content);
           setStatus(post.status);
         } catch (error) {
-          setErrorMessage(error.message);
+          setErrorMessage(error.message || "Error fetching the post.");
         } finally {
           setLoading(false);
         }
@@ -120,7 +120,9 @@ const AddAPost = () => {
 
       navigate("/dashboard");
     } catch (error) {
-      setErrorMessage(error.message);
+      setErrorMessage(
+        error.message || "An unexpected error occurred. Please try again."
+      );
     } finally {
       setLoading(false);
     }
