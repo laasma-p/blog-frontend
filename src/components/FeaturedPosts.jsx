@@ -58,7 +58,7 @@ const FeaturedPosts = () => {
             return (
               <div
                 key={post.id}
-                className="p-6 border-2 border-east-side rounded-lg shadow-lg text-nero relative max-w-full"
+                className="p-6 border-2 border-east-side rounded-lg text-nero relative max-w-full"
               >
                 <FontAwesomeIcon
                   icon={faThumbtack}

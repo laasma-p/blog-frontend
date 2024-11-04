@@ -98,7 +98,7 @@ const Login = ({ setIsAuthenticated }) => {
           )}
           <form
             onSubmit={loggingInHandler}
-            className="bg-white-smoke p-4 rounded-lg shadow-lg mx-auto"
+            className="bg-white-smoke p-4 rounded-lg mx-auto"
           >
             <div className="mb-6">
               <label
@@ -147,7 +147,7 @@ const Login = ({ setIsAuthenticated }) => {
               )}
             </div>
             <button
-              className={`w-full py-2 bg-chetwode-blue text-white-smoke rounded-md shadow-md transition-colors duration-300 ${
+              className={`w-full py-2 bg-chetwode-blue text-white-smoke rounded-md transition-colors duration-300 ${
                 loading
                   ? "opacity-50 cursor-not-allowed"
                   : "hover:bg-east-side hover:text-nero"

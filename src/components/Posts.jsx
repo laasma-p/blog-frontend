@@ -56,7 +56,7 @@ const Posts = () => {
             return (
               <div
                 key={post.id}
-                className="p-6 border-2 border-east-side rounded-lg shadow-lg text-nero"
+                className="p-6 border-2 border-east-side rounded-lg text-nero"
               >
                 <h3 className="text-2xl font-bold mb-2 break-words">
                   <Link

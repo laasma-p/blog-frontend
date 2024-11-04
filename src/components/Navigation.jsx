@@ -11,7 +11,7 @@ const Navigation = ({ isAuthenticated, setIsAuthenticated }) => {
   };
 
   return (
-    <nav className="flex justify-between items-center p-4 bg-light-pink shadow-lg">
+    <nav className="flex justify-between items-center p-4 bg-light-pink">
       <Link to="/" className="text-2xl text-nero font-bold">
         My Blog
       </Link>
