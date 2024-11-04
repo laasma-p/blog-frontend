@@ -58,13 +58,13 @@ const FeaturedPosts = () => {
             return (
               <div
                 key={post.id}
-                className="p-6 border-2 border-east-side rounded-lg text-nero relative max-w-full"
+                className="py-5 px-4 border-2 border-east-side rounded-lg text-nero relative max-w-full"
               >
                 <FontAwesomeIcon
                   icon={faThumbtack}
                   className="absolute top-4 right-4 text-east-side"
                 />
-                <h3 className="text-2xl font-bold mb-2 break-words">
+                <h3 className="text-2xl font-bold mt-3 mb-2 break-words">
                   <Link
                     to={`/post/${post.id}`}
                     className="hover:text-chetwode-blue transition-colors duration-300"
