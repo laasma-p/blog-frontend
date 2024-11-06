@@ -132,7 +132,7 @@ const AddAPost = () => {
     <div className="bg-white-smoke min-h-screen">
       <div className="container mx-auto py-8 px-8 flex flex-col lg:flex-row lg:gap-4 gap-2">
         <div
-          className={`w-full p-4 border-border-chetwode-blue ${
+          className={`w-full p-4 border border-dark-purple ${
             content ? "lg:w-1/2" : "lg:w-full max-w-4xl mx-auto"
           }`}
         >
@@ -140,7 +140,9 @@ const AddAPost = () => {
             {postId ? "Edit post" : "Add a new post"}
           </h2>
           {errorMessage && (
-            <p className="text-amaranth text-md text-center">{errorMessage}</p>
+            <p className="text-bright-red text-md text-center">
+              {errorMessage}
+            </p>
           )}
           <form
             onSubmit={addOrEditAPostHandler}
@@ -158,15 +160,15 @@ const AddAPost = () => {
                 id="title"
                 className={`p-2 w-full border rounded-md focus:outline-none focus:ring-2 ${
                   validationErrors.title
-                    ? "border-amaranth focus:ring-amaranth"
-                    : "border-chetwode-blue focus:ring-chetwode-blue"
+                    ? "border-bright-red focus:ring-bright-red"
+                    : "border-bright-purple focus:ring-bright-purple"
                 }`}
                 value={title}
                 onChange={titleChangeHandler}
                 placeholder="Enter the title of the post"
               />
               {validationErrors.title && (
-                <p className="text-amaranth">{validationErrors.title}</p>
+                <p className="text-bright-red">{validationErrors.title}</p>
               )}
             </div>
             <div className="mb-6">
@@ -180,8 +182,8 @@ const AddAPost = () => {
                 id="content"
                 className={`p-2 w-full border rounded-md focus:outline-none focus:ring-2 ${
                   validationErrors.title
-                    ? "border-amaranth focus:ring-amaranth"
-                    : "border-chetwode-blue focus:ring-chetwode-blue"
+                    ? "border-bright-red focus:ring-bright-red"
+                    : "border-bright-purple focus:ring-bright-purple"
                 }`}
                 value={content}
                 onChange={contentChangeHandler}
@@ -189,7 +191,7 @@ const AddAPost = () => {
                 rows="5"
               />
               {validationErrors.content && (
-                <p className="text-amaranth">{validationErrors.content}</p>
+                <p className="text-bright-red">{validationErrors.content}</p>
               )}
             </div>
             <div className="mb-6">
@@ -201,7 +203,7 @@ const AddAPost = () => {
               </label>
               <select
                 id="status"
-                className="w-full p-2 border border-chetwode-blue rounded-md focus:outline-none focus:ring-2 focus:ring-east-side"
+                className="w-full p-2 border border-bright-purple rounded-md focus:outline-none focus:ring-2 focus:ring-bright-purple"
                 value={status}
                 onChange={statusChangeHandler}
               >
@@ -211,10 +213,10 @@ const AddAPost = () => {
             </div>
             <button
               type="submit"
-              className={`w-full py-2 bg-chetwode-blue text-white-smoke rounded-md transition-colors duration-300 ${
+              className={`w-full py-2 bg-dark-purple text-white-smoke rounded-md transition-colors duration-300 ${
                 loading
                   ? "opacity-50 cursor-not-allowed"
-                  : "hover:bg-east-side hover:text-nero"
+                  : "hover:bg-light-purple hover:text-nero"
               }`}
               disabled={loading}
             >
