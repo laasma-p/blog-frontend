@@ -63,6 +63,7 @@ const FeaturedPosts = () => {
                 <FontAwesomeIcon
                   icon={faThumbtack}
                   className="absolute top-4 right-4 text-dark-purple"
+                  title="Pinned by author"
                 />
                 <h3 className="text-2xl font-bold mt-3 mb-2 break-words">
                   <Link
