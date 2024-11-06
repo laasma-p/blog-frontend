@@ -49,7 +49,7 @@ const FeaturedPosts = () => {
       {loading ? (
         <p className="text-lg">Loading featured posts...</p>
       ) : errorMessage ? (
-        <p className="text-lg text-amaranth">{errorMessage}</p>
+        <p className="text-lg text-bright-red">{errorMessage}</p>
       ) : featuredPosts.length === 0 ? (
         <p className="text-lg">No featured posts found.</p>
       ) : (
@@ -58,16 +58,16 @@ const FeaturedPosts = () => {
             return (
               <div
                 key={post.id}
-                className="py-5 px-4 border-2 border-east-side rounded-lg text-nero relative max-w-full"
+                className="py-5 px-4 border-2 border-dark-purple rounded-lg text-nero relative max-w-full"
               >
                 <FontAwesomeIcon
                   icon={faThumbtack}
-                  className="absolute top-4 right-4 text-east-side"
+                  className="absolute top-4 right-4 text-dark-purple"
                 />
                 <h3 className="text-2xl font-bold mt-3 mb-2 break-words">
                   <Link
                     to={`/post/${post.id}`}
-                    className="hover:text-chetwode-blue transition-colors duration-300"
+                    className="hover:text-bright-purple transition-colors duration-300"
                   >
                     {post.title}
                   </Link>
@@ -88,7 +88,7 @@ const FeaturedPosts = () => {
                 <div>
                   <Link
                     to={`/post/${post.id}`}
-                    className="font-semibold hover:text-chetwode-blue transition-colors duration-300"
+                    className="font-semibold hover:text-bright-purple transition-colors duration-300"
                   >
                     Read more →
                   </Link>

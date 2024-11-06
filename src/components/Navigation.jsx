@@ -11,7 +11,7 @@ const Navigation = ({ isAuthenticated, setIsAuthenticated }) => {
   };
 
   return (
-    <nav className="flex justify-between items-center p-4 bg-light-pink">
+    <nav className="flex justify-between items-center p-4 bg-light-purple">
       <Link to="/" className="text-2xl text-nero font-bold">
         My Blog
       </Link>
@@ -21,8 +21,8 @@ const Navigation = ({ isAuthenticated, setIsAuthenticated }) => {
             <NavLink
               to="/dashboard"
               className={({ isActive }) =>
-                `text-nero hover:text-white-smoke hover:bg-light-blue transition-colors duration-300 p-2 rounded-lg ${
-                  isActive ? "bg-light-blue text-white-smoke" : ""
+                `text-nero hover:text-white-smoke hover:bg-dark-purple transition-colors duration-300 p-2 rounded-lg ${
+                  isActive ? "bg-dark-purple text-white-smoke" : ""
                 }`
               }
             >
@@ -31,8 +31,8 @@ const Navigation = ({ isAuthenticated, setIsAuthenticated }) => {
             <NavLink
               to="/add-a-post"
               className={({ isActive }) =>
-                `text-nero hover:text-white-smoke hover:bg-light-blue transition-colors duration-300 p-2 rounded-lg ${
-                  isActive ? "bg-light-blue text-white-smoke" : ""
+                `text-nero hover:text-white-smoke hover:bg-dark-purple transition-colors duration-300 p-2 rounded-lg ${
+                  isActive ? "bg-dark-purple text-white-smoke" : ""
                 }`
               }
             >
@@ -41,15 +41,15 @@ const Navigation = ({ isAuthenticated, setIsAuthenticated }) => {
             <NavLink
               to="/profile"
               className={({ isActive }) =>
-                `text-nero hover:text-white-smoke hover:bg-light-blue transition-colors duration-300 p-2 rounded-lg ${
-                  isActive ? "bg-light-blue text-white-smoke" : ""
+                `text-nero hover:text-white-smoke hover:bg-dark-purple transition-colors duration-300 p-2 rounded-lg ${
+                  isActive ? "bg-dark-purple text-white-smoke" : ""
                 }`
               }
             >
               Profile
             </NavLink>
             <button
-              className="text-nero hover:text-white-smoke hover:bg-light-blue transition-colors duration-300 p-2 rounded-lg"
+              className="text-nero hover:text-white-smoke hover:bg-dark-purple transition-colors duration-300 p-2 rounded-lg"
               onClick={loggingOutHandler}
               aria-label="Log out"
             >
@@ -60,8 +60,8 @@ const Navigation = ({ isAuthenticated, setIsAuthenticated }) => {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              `text-nero hover:text-white-smoke hover:bg-light-blue transition-colors duration-300 p-2 rounded-lg ${
-                isActive ? "bg-light-blue text-white-smoke" : ""
+              `text-nero hover:text-white-smoke hover:bg-dark-purple transition-colors duration-300 p-2 rounded-lg ${
+                isActive ? "bg-dark-purple text-white-smoke" : ""
               }`
             }
           >

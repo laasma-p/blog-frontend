@@ -47,7 +47,7 @@ const Posts = () => {
       {loading ? (
         <p className="text-lg">Loading posts...</p>
       ) : errorMessage ? (
-        <p className="text-lg text-amaranth">{errorMessage}</p>
+        <p className="text-lg text-bright-red">{errorMessage}</p>
       ) : posts.length === 0 ? (
         <p className="text-lg">No posts found.</p>
       ) : (
@@ -56,12 +56,12 @@ const Posts = () => {
             return (
               <div
                 key={post.id}
-                className="p-6 border-2 border-east-side rounded-lg text-nero"
+                className="p-6 border-2 border-dark-purple rounded-lg text-nero"
               >
                 <h3 className="text-2xl font-bold mb-2 break-words">
                   <Link
                     to={`/post/${post.id}`}
-                    className="hover:text-chetwode-blue transition-colors duration-300"
+                    className="hover:text-bright-purple transition-colors duration-300"
                   >
                     {post.title}
                   </Link>
@@ -82,7 +82,7 @@ const Posts = () => {
                 <div>
                   <Link
                     to={`/post/${post.id}`}
-                    className="font-semibold hover:text-chetwode-blue transition-colors duration-300"
+                    className="font-semibold hover:text-bright-purple transition-colors duration-300"
                   >
                     Read more →
                   </Link>

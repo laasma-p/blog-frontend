@@ -94,7 +94,9 @@ const Login = ({ setIsAuthenticated }) => {
             Login
           </h2>
           {errorMessage && (
-            <p className="text-amaranth text-md text-center">{errorMessage}</p>
+            <p className="text-bright-red text-md text-center">
+              {errorMessage}
+            </p>
           )}
           <form
             onSubmit={loggingInHandler}
@@ -113,14 +115,14 @@ const Login = ({ setIsAuthenticated }) => {
                 id="email"
                 className={`p-2 w-full border rounded-md focus:outline-none focus:ring-2 ${
                   validationErrors.email
-                    ? "border-amaranth focus:ring-amaranth"
-                    : "border-chetwode-blue focus:ring-chetwode-blue"
+                    ? "border-bright-red focus:ring-bright-red"
+                    : "border-bright-purple focus:ring-bright-purple"
                 }`}
                 value={email}
                 onChange={emailChangeHandler}
               />
               {validationErrors.email && (
-                <p className="text-amaranth">{validationErrors.email}</p>
+                <p className="text-bright-red">{validationErrors.email}</p>
               )}
             </div>
             <div className="mb-6">
@@ -136,21 +138,21 @@ const Login = ({ setIsAuthenticated }) => {
                 id="password"
                 className={`p-2 w-full border rounded-md focus:outline-none focus:ring-2 ${
                   validationErrors.password
-                    ? "border-amaranth focus:ring-amaranth"
-                    : "border-chetwode-blue focus:ring-chetwode-blue"
+                    ? "border-bright-red focus:ring-bright-red"
+                    : "border-bright-purple focus:ring-bright-purple"
                 }`}
                 value={password}
                 onChange={passwordChangeHandler}
               />
               {validationErrors.password && (
-                <p className="text-amaranth">{validationErrors.password}</p>
+                <p className="text-bright-red">{validationErrors.password}</p>
               )}
             </div>
             <button
-              className={`w-full py-2 bg-chetwode-blue text-white-smoke rounded-md transition-colors duration-300 ${
+              className={`w-full py-2 bg-dark-purple text-white-smoke rounded-md transition-colors duration-300 ${
                 loading
                   ? "opacity-50 cursor-not-allowed"
-                  : "hover:bg-east-side hover:text-nero"
+                  : "hover:bg-light-purple hover:text-nero"
               }`}
               disabled={loading}
             >

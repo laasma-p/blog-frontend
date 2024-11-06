@@ -53,7 +53,7 @@ const Post = () => {
         <p className="text-lg text-nero mb-4">{errorMessage}</p>
         <Link
           to="/"
-          className="text-lg text-chetwode-blue hover:text-east-side transition-colors duration-300"
+          className="text-lg text-dark-purple hover:text-bright-purple transition-colors duration-300"
         >
           Go back to home
         </Link>
@@ -66,7 +66,7 @@ const Post = () => {
       <div className="max-w-4xl mx-auto p-6 text-nero">
         <Link
           to="/"
-          className="hover:text-chetwode-blue transition-colors duration-300"
+          className="hover:text-bright-purple transition-colors duration-300"
         >
           ← Back to posts
         </Link>
@@ -82,7 +82,7 @@ const Post = () => {
             by{" "}
             <Link
               to="/about-me"
-              className="font-bold text-chetwode-blue hover:underline"
+              className="font-bold text-bright-purple hover:underline"
             >
               {post.admin.firstName}
             </Link>{" "}
