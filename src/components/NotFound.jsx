@@ -13,7 +13,7 @@ const NotFound = ({ isAuthenticated }) => {
       </p>
       <Link
         to={isAuthenticated ? "/dashboard" : "/"}
-        className="text-lg text-chetwode-blue hover:text-east-side transition-colors duration-300"
+        className="text-lg text-dark-purple hover:text-bright-purple transition-colors duration-300"
       >
         Go back to {isAuthenticated ? "dashboard" : "home"}
       </Link>
