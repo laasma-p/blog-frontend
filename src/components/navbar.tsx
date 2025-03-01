@@ -1,16 +1,17 @@
 import ThemeSwitcher from "./theme-switcher";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
     <header>
       <div>
-        <a href="#">Living Bright</a>
+        <Link href="#">Living Bright</Link>
         <nav>
-          <a href="#">Tech</a>
-          <a href="#">Opinions</a>
-          <a href="#">Reviews</a>
-          <a href="#">Thoughts</a>
-          <a href="#">Lifestyle</a>
+          <Link href="#">Tech</Link>
+          <Link href="#">Opinions</Link>
+          <Link href="#">Reviews</Link>
+          <Link href="#">Thoughts</Link>
+          <Link href="#">Lifestyle</Link>
         </nav>
         <ThemeSwitcher />
       </div>
