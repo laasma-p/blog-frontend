@@ -1,10 +1,18 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function ThemeSwitcher() {
   const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) {
+      setTheme(storedTheme);
+      document.documentElement.classList.add(storedTheme);
+    }
+  }, []);
 
   const toggleThemeHandler = () => {
     const themeSwitch = theme === "light" ? "dark" : "light";
@@ -12,6 +20,7 @@ export default function ThemeSwitcher() {
 
     document.documentElement.classList.remove("light", "dark");
     document.documentElement.classList.add(themeSwitch);
+    localStorage.setItem("theme", themeSwitch);
   };
 
   return (
