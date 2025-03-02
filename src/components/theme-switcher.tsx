@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 
 export default function ThemeSwitcher() {
   const [theme, setTheme] = useState<"light" | "dark" | null>(null);
+  const [isUserPreferenceSet, setIsUserPreferenceSet] = useState(false);
 
   useEffect(() => {
     const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
@@ -15,19 +16,25 @@ export default function ThemeSwitcher() {
       | "light"
       | "dark"
       | null;
+    const userPreferenceSet = localStorage.getItem("theme-set") === "true";
 
     setTheme(systemTheme || storedTheme);
+    setIsUserPreferenceSet(userPreferenceSet);
 
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    if (!userPreferenceSet) {
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-    const systemThemeChangeHandler = (event: MediaQueryListEvent) => {
-      setTheme(event.matches ? "dark" : "light");
-    };
+      const systemThemeChangeHandler = (event: MediaQueryListEvent) => {
+        if (!localStorage.getItem("theme-set")) {
+          setTheme(event.matches ? "dark" : "light");
+        }
+      };
 
-    mediaQuery.addEventListener("change", systemThemeChangeHandler);
+      mediaQuery.addEventListener("change", systemThemeChangeHandler);
 
-    return () =>
-      mediaQuery.removeEventListener("change", systemThemeChangeHandler);
+      return () =>
+        mediaQuery.removeEventListener("change", systemThemeChangeHandler);
+    }
   }, []);
 
   useEffect(() => {
@@ -39,7 +46,11 @@ export default function ThemeSwitcher() {
   }, [theme]);
 
   const toggleThemeHandler = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    const themeSwitch = theme === "light" ? "dark" : "light";
+    setTheme(themeSwitch);
+    setIsUserPreferenceSet(true);
+    localStorage.setItem("theme", themeSwitch);
+    localStorage.setItem("theme-set", "true");
   };
 
   return (
