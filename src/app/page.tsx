@@ -1,3 +1,5 @@
+import Posts from "@/components/posts";
+
 export default function Home() {
   return (
     <div>
@@ -6,6 +8,7 @@ export default function Home() {
         A blog where opinions, personal thoughts, and insights on the world —
         from tech to life experiences — are shared.
       </p>
+      <Posts />
     </div>
   );
 }
