@@ -24,13 +24,22 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header>
-      <div>
-        <Link href="#">Living Bright</Link>
-        <nav>
+    <header className="bg-chetwode-blue dark:bg-east-side">
+      <div className="container mx-auto flex items-center justify-between p-4">
+        <Link
+          href="#"
+          className="text-2xl font-bold tracking-wide text-white-smoke dark:text-nero hover:text-nero dark:hover:text-white-smoke transition duration-300"
+        >
+          Living Bright
+        </Link>
+        <nav className="flex space-x-6 flex-wrap justify-center items-center">
           {categories.map((category) => {
             return (
-              <Link key={category.slug} href="#">
+              <Link
+                key={category.slug}
+                href="#"
+                className="text-lg font-medium text-white-smoke dark:text-nero hover:text-nero dark:hover:text-white-smoke transition duration-300"
+              >
                 {category.name}
               </Link>
             );
