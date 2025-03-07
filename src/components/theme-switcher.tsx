@@ -54,7 +54,10 @@ export default function ThemeSwitcher() {
   };
 
   return (
-    <button onClick={toggleThemeHandler}>
+    <button
+      onClick={toggleThemeHandler}
+      className="text-white-smoke dark:text-nero hover:text-nero dark:hover:text-white-smoke cursor-pointer transition duration-300"
+    >
       {theme === "light" ? <Moon size={24} /> : <Sun size={24} />}
     </button>
   );
